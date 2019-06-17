@@ -127,11 +127,10 @@ public class BuscarController {
 	public void removerDeVez() {
 		int linhaSelecionada = janelaEstoque.getTabelaEstoque().getSelectedRow();
 		if (linhaSelecionada != -1) {
-			janelaEstoque.getTableModel().removeRow(linhaSelecionada);
 			try{
 				Connection conexao = new ConexaoDao().getConnection();
 				RemoverDao removerDao = new RemoverDao(conexao);
-				removerDao.removerProduto(linhaSelecionada);
+				removerDao.removerProduto((int) janelaEstoque.getTableModel().getValueAt(linhaSelecionada, 0));
 				preencherResultadosEstoque();
 			}
 			catch(Exception e) {

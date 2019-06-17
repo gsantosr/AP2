@@ -48,7 +48,7 @@ public class NovoEstoqueView extends JFrame {
 
 	public NovoEstoqueView() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 879, 625);
+		setBounds(200, 100, 879, 625);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

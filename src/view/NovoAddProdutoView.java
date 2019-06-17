@@ -49,7 +49,7 @@ public class NovoAddProdutoView extends JFrame {
 	 */
 	public NovoAddProdutoView() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(500, 50, 760, 434);
+		setBounds(300, 100, 760, 434);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
