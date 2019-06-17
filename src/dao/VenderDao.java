@@ -18,8 +18,7 @@ public class VenderDao {
 	
 	public Produto pegarProduto(int codigoProduto, int qtdComprada) throws SQLException {
 		
-			String sql =  "select * from produtos where codigo ="+codigoProduto+"";
-		
+		String sql =  "select * from produtos where codigo ="+codigoProduto+"";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		ResultSet resultado = statement.executeQuery();
 		while(resultado.next()) {
@@ -31,25 +30,15 @@ public class VenderDao {
 			produto.setTipo(resultado.getString(5));
 			produto.setQuantidade(qtdComprada);
 			produto.setPreco(qtdComprada * resultado.getDouble(7));
-			return produto;			
+			if(qtdComprada > resultado.getInt(6)) {
+				return null;
+			}
+			else {
+				return produto;
+			}
 		}
 		return null;
 			
-	}
-	
-	public void removerEstoque(int codigoProduto, int qtdRemovida) throws SQLException {		
-			String sql =  "update produtos set quantidade = quantidade - "+qtdRemovida+"where codigo ="+codigoProduto+"";
-		
-		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.execute();
-			
-	}
-	
-	public void adicionarEstoque(int codigoProduto, int qtdAdicionada) throws SQLException {		
-		String sql =  "update produtos set quantidade = quantidade + "+qtdAdicionada+"where codigo ="+codigoProduto+"";
-	
-	PreparedStatement statement = connection.prepareStatement(sql);
-	statement.execute();
 	}
 	
 	//VERIFICA SE O CPF (CLIENTE) ESTÁ CADASTRADO

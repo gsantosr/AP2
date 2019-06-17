@@ -83,7 +83,7 @@ public class ProdutosDao {
 	}
 	
 	public void removerEstoque(int codigoProduto, int qtdComprada) throws SQLException {		
-		String sql =  "update produtos set quantidade = quantidade - "+qtdComprada+"where codigo ="+codigoProduto+"";
+		String sql =  "update produtos set quantidade = quantidade - "+qtdComprada+" where codigo ="+codigoProduto+"";
 	
 	PreparedStatement statement = connection.prepareStatement(sql);
 	statement.execute();

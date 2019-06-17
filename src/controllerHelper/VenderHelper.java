@@ -4,6 +4,7 @@ import view.BuscarView;
 import view.CarrinhoView;
 import view.QtdCarrinhoView;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Produto;
@@ -24,17 +25,23 @@ public class VenderHelper {
 	
 	//MÉTODOS QUE PREENCHEM TABELA NO BUSCAR CÓDIGO
 	public void adicionarNaVenda(Produto produto) {
-		janelaVender.novaLinha();
-
-		janelaVender.getTableModel().addRow(new Object[] {
-			produto.getCodigo(),
-            produto.getNome(),
-            produto.getFabricante(),
-            produto.getTamanho(),
-            produto.getTipo(),
-            produto.getQuantidade(),
-            produto.getPreco(),
-		});
+		if(produto == null) {
+			JOptionPane.showMessageDialog(null, "Quantidade de produtos no estoque insuficiente para atender o pedido.",
+					"Estoque insuficiente", JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			janelaVender.novaLinha();
+	
+			janelaVender.getTableModel().addRow(new Object[] {
+				produto.getCodigo(),
+	            produto.getNome(),
+	            produto.getFabricante(),
+	            produto.getTamanho(),
+	            produto.getTipo(),
+	            produto.getQuantidade(),
+	            produto.getPreco(),
+			});
+		}
 	}
 	
 	public void removerNaVenda(int codigoProduto, int qtd) {

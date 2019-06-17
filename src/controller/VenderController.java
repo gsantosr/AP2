@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import controllerHelper.BuscarHelper;
 import controllerHelper.VenderHelper;
 import dao.ProdutosDao;
@@ -29,22 +31,48 @@ public class VenderController {
 		int codigoProduto = Integer.parseInt(janelaCarrinho.getTextCodigoProduto().getText());
 		int quantidade = Integer.parseInt(janelaCarrinho.getTextQtd().getText());
 		int comboBox = janelaCarrinho.getComboBox().getSelectedIndex();
-		
-		if(comboBox == 0) {
-			Connection conexao;
-			try {
-				conexao = new ConexaoDao().getConnection();
-				VenderDao venderDao = new VenderDao(conexao);
-				helper.adicionarNaVenda(venderDao.pegarProduto(codigoProduto, quantidade));
+		if(quantidade > 0) {
+			if(comboBox == 0) {
+				Connection conexao;
+				try {
+					conexao = new ConexaoDao().getConnection();
+					VenderDao venderDao = new VenderDao(conexao);
+					helper.adicionarNaVenda(venderDao.pegarProduto(codigoProduto, quantidade));
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+				
 			}
-			catch(Exception e) {
-				e.printStackTrace();
+			else {
+				helper.removerNaVenda(codigoProduto, quantidade);
 			}
-			
 		}
 		else {
-			helper.removerNaVenda(codigoProduto, quantidade);
+			JOptionPane.showMessageDialog(null,"A quantidade de produtos deve ser positiva",
+					"Quantidade inválida",JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	//Dar a baixa no estoque quando confirmar a venda.
+	public void baixaEstoque() {
+		Connection conexao;
+		try {
+			conexao = new ConexaoDao().getConnection();
+			ProdutosDao produtosDao = new ProdutosDao(conexao);
+			for(int i = 0 ; i <= janelaCarrinho.getLinhas() ; i++) {
+				int codigo = (int) janelaCarrinho.getTabelaCarrinho().getValueAt(i, 0);
+				int qtd = (int) janelaCarrinho.getTabelaCarrinho().getValueAt(i, 5);
+				System.out.println(codigo);
+				System.out.println(qtd);
+				produtosDao.removerEstoque(codigo, qtd);
+				
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public VenderHelper getHelper() {

@@ -92,6 +92,7 @@ public class PagamentoFinalView extends JFrame {
 				janelaFormaDePagamento.getJanelaCarrinho().getJanelaBuscar().dispose();
 				janelaFormaDePagamento.getJanelaCarrinho().getJanelaBuscar().getJanelaMenu().toFront();
 				janelaFormaDePagamento.getJanelaCarrinho().getJanelaBuscar().getJanelaMenu().setEnabled(true);
+				janelaFormaDePagamento.getJanelaCarrinho().getControlador().baixaEstoque();
 			}
 		});
 		btnFinalizarCompra.setFont(new Font("Tahoma", Font.PLAIN, 14));
